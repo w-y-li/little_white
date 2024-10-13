@@ -4,26 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unlock the Video</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff0f5;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+            overflow: hidden;
+        }
+        h1 {
+            color: #ff69b4;
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        #message {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            animation: fadeIn 3s ease-in-out;
+        }
+        #videoLink a {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #ff69b4;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.5em;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        #videoLink a:hover {
+            background-color: #ff1493;
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .confetti {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
     <script>
         function checkTime() {
-            // 北京时间 2024 年 10 月 14 日 0 点
-            var unlockTime = new Date('2024-10-13T16:00:00Z'); // UTC 时间
+            var unlockTime = new Date('2024-10-12T16:00:00Z'); // UTC 时间
             var currentTime = new Date();
 
             if (currentTime >= unlockTime) {
                 document.getElementById('videoLink').style.display = 'block';
                 document.getElementById('message').innerText = '';
+                createConfetti();
             } else {
-                document.getElementById('message').innerText = 'Please try later';
+                document.getElementById('message').innerText = 'Please wait for your birthday! It\'s too early now! Little white pig!';
+            }
+        }
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            document.body.appendChild(confetti);
+
+            for (let i = 0; i < 100; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = '10px';
+                particle.style.height = '10px';
+                particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.opacity = Math.random();
+                particle.style.borderRadius = '50%';
+                confetti.appendChild(particle);
+
+                const animation = particle.animate([
+                    { transform: 'translateY(0)' },
+                    { transform: `translateY(${window.innerHeight}px)` }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    iterations: Infinity,
+                    delay: Math.random() * 5000
+                });
             }
         }
     </script>
 </head>
 <body onload="checkTime()">
-    <h1>Lock!</h1>
+    <h1>Happy Birthday!</h1>
     <p id="message"></p>
     <div id="videoLink" style="display:none;">
-        <a href="https://docs.qq.com/doc/DU0R2empTb0ttdVVh" target="_blank">Click to watch the video</a>
+        <a href="https://docs.qq.com/doc/DU0R2empTb0ttdVVh" target="_blank">Click to see your gift!</a>
     </div>
 </body>
 </html>
